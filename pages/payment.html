@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Payments & Services | EPMOS</title>
+<meta name="description" content="Secure EPMOS checkout for fixed-price services, diagnostics, Studio work, websites, dashboards, AI companion work, strategy, sales, and qualification engagements.">
+<link rel="canonical" href="https://epmos.tech/pages/payment.html">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.payment-wrap{max-width:1080px;margin:0 auto;padding:2rem 1rem 5rem}.payment-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:1rem}.payment-card{border:1px solid #3f4650;border-radius:16px;padding:1.5rem;background:rgba(255,255,255,.025)}.payment-card h2{margin-top:0}.price{font-size:3rem;font-weight:800;letter-spacing:-.04em;margin:.2rem 0}.muted{opacity:.75}.steps{margin:1.5rem 0;padding-left:1.2rem}.steps li{margin:.65rem 0}.actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.25rem}.fine-note{font-size:.9rem;opacity:.75;margin-top:1.5rem}.checkout-panel{margin-top:1rem}.checkout-panel label{display:block;font-weight:700;margin-bottom:.5rem}.checkout-panel select{width:100%;padding:.9rem;border-radius:10px;border:1px solid #525b67;background:#12161c;color:#fff;font:inherit}.selection{display:grid;grid-template-columns:1fr auto;gap:.8rem;align-items:end;margin:1rem 0;padding:1rem;border:1px solid #4f5966;border-radius:12px;background:rgba(255,255,255,.02)}.selection strong{display:block}.selection .selection-price{font-size:2rem;font-weight:800}.sku{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.78rem;opacity:.65;margin-top:.35rem}.status{margin:.9rem 0;padding:.75rem 1rem;border-radius:10px;background:rgba(255,255,255,.04);min-height:1.2rem}.status[data-kind="success"]{border:1px solid rgba(73,201,126,.45)}.status[data-kind="warning"]{border:1px solid rgba(255,193,7,.45)}.status[data-kind="error"]{border:1px solid rgba(255,90,90,.55)}#paypal-button-container{max-width:520px}.payment-success{border:1px solid rgba(73,201,126,.5);border-radius:16px;padding:1.5rem;background:rgba(73,201,126,.06)}.payment-success h2{margin-top:0}.success-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}.success-field{padding:.8rem;border:1px solid #3f4650;border-radius:10px}.success-field span{display:block;font-size:.8rem;opacity:.7;margin-bottom:.3rem}@media(max-width:800px){.payment-grid{grid-template-columns:1fr}.selection{grid-template-columns:1fr}.success-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="site-header"><a class="brand" href="../index.html" aria-label="EPMOS home"><span class="brand-mark">E</span><span>EPMOS</span></a><button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button><nav id="site-nav" aria-label="Primary navigation"><a href="../index.html">Home</a><a href="what-is-epmos.html">What is EPMOS</a><a href="verification-service.html">Test Your AI</a><a href="work-order.html">Create Work Order</a><a href="payment.html" aria-current="page">Payment</a><a href="contact.html">Contact</a></nav></header>
+<main>
+<section class="page-hero"><div class="eyebrow">SECURE EPMOS CHECKOUT</div><h1>Select a service. Pay securely. Keep the scope governed.</h1><p class="lede">Fixed-price EPMOS services can be paid securely through PayPal. Prices are determined on the EPMOS server from the selected service SKU; the browser cannot set or alter the checkout amount.</p><div class="status-chip"><span class="status-dot"></span>PUBLIC-SAFE · SERVER-VALIDATED PRICING · PAYPAL CHECKOUT</div></section>
+<div class="payment-wrap">
+<section class="payment-grid">
+<article class="payment-card"><div class="eyebrow">FREE PATH</div><h2>Diagnostic Work Order</h2><div class="price">$0</div><p>Define the problem before committing capital. Use the public work-order form to describe the system, objective, constraints, and consequence of being wrong.</p><ul class="steps"><li>Create a new diagnostic work order or drop off an existing one.</li><li>No payment is required to submit a diagnostic request.</li><li>No production mutation, remediation authority, certification, or other expanded authority is granted by the form.</li></ul><div class="actions"><a class="button primary" href="work-order.html">Create Free Work Order</a><a class="button" href="work-order-dropoff.html">Drop Off Existing Work Order</a></div></article>
+
+<article class="payment-card" id="checkout-panel"><div class="eyebrow">PAID SERVICES</div><h2>Secure checkout</h2><p>Select the EPMOS service you are purchasing. The exact amount shown here is verified again by the EPMOS server when the PayPal order is created and captured.</p>
+<div class="checkout-panel">
+<label for="service-sku">EPMOS service</label>
+<select id="service-sku" aria-describedby="checkout-status"><option>Loading services…</option></select>
+<div class="selection"><div><strong id="selected-service">Loading…</strong><div class="sku">SKU: <span id="selected-sku">—</span></div></div><div class="selection-price" id="selected-price">—</div></div>
+<div id="checkout-status" class="status" role="status" aria-live="polite">Loading secure checkout…</div>
+<div id="paypal-button-container" aria-label="PayPal checkout"></div>
+</div>
+<p class="fine-note">Digital and professional services only; no shipping is required. A payment purchases only the selected fixed-price service or billing period and does not expand EPMOS authority beyond the agreed scope. Monthly-labeled items represent the listed service period; any ongoing recurring arrangement is confirmed separately in writing.</p>
+</article>
+</section>
+
+<section id="payment-success" class="payment-success" hidden>
+<div class="eyebrow">PAYMENT CONFIRMED</div><h2>Your EPMOS payment was captured.</h2><p>Keep this confirmation for your records. EPMOS will use the order information to reconcile the engagement and intake.</p>
+<div class="success-grid"><div class="success-field"><span>Service</span><strong id="success-service">—</strong></div><div class="success-field"><span>Amount</span><strong id="success-amount">—</strong></div><div class="success-field"><span>PayPal order</span><strong id="success-order">—</strong></div><div class="success-field"><span>Next step</span><strong>Complete or reference your EPMOS work order</strong></div></div>
+<div class="actions"><a class="button primary" href="work-order.html">Create / Update Work Order</a><a class="button" href="contact.html">Contact EPMOS</a></div>
+</section>
+</div>
+</main>
+<footer class="site-footer"><div><strong>EPMOS</strong><span>Human-Governed · Traceable · Accountable</span></div><div><a href="work-order.html">Free Diagnostic Work Order</a><a href="payment.html">Payment</a></div></footer>
+<script src="../site.js" defer></script>
+<script src="../paypal-checkout.js" defer></script>
+</body>
+</html>

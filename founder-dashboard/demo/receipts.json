@@ -1,0 +1,28 @@
+{
+  "client_code": "DEMO",
+  "client_name": "Demo Client",
+  "demo": true,
+  "receipts": [
+    {
+      "evidence": "Sample URL format only",
+      "identifier": "SAMPLE-POST-001",
+      "price": "",
+      "status": "Published",
+      "title": "Sample post published"
+    },
+    {
+      "evidence": "Sample store identifier format only",
+      "identifier": "SAMPLE-BOOK-001",
+      "price": "$19.99",
+      "status": "Live",
+      "title": "Sample book listing live"
+    },
+    {
+      "evidence": "Sample file reference format only",
+      "identifier": "SAMPLE-FILE-001",
+      "price": "",
+      "status": "Filed",
+      "title": "Sample filing recorded"
+    }
+  ]
+}

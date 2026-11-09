@@ -1,0 +1,17 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    { "source": "/lab", "destination": "/sites/lab/index.html" },
+    { "source": "/lab/", "destination": "/sites/lab/index.html" },
+    { "source": "/lab/work-order", "destination": "/sites/lab/intake.html" },
+    { "source": "/lab/intake", "destination": "/sites/lab/intake.html" },
+    { "source": "/lab/pricing", "destination": "/sites/lab/pricing.html" },
+    { "source": "/", "has": [{ "type": "host", "value": "lab.epmos.tech" }], "destination": "/sites/lab/index.html" },
+    { "source": "/index.html", "has": [{ "type": "host", "value": "lab.epmos.tech" }], "destination": "/sites/lab/index.html" },
+    { "source": "/intake.html", "has": [{ "type": "host", "value": "lab.epmos.tech" }], "destination": "/sites/lab/intake.html" },
+    { "source": "/work-order", "has": [{ "type": "host", "value": "lab.epmos.tech" }], "destination": "/sites/lab/intake.html" },
+    { "source": "/pricing.html", "has": [{ "type": "host", "value": "lab.epmos.tech" }], "destination": "/sites/lab/pricing.html" },
+    { "source": "/pricing", "has": [{ "type": "host", "value": "lab.epmos.tech" }], "destination": "/sites/lab/pricing.html" },
+    { "source": "/shared/styles.css", "has": [{ "type": "host", "value": "lab.epmos.tech" }], "destination": "/sites/shared/styles.css" }
+  ]
+}

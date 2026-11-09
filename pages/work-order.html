@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Create a Diagnostic Work Order | EPMOS</title>
+<meta name="description" content="Create a governed EPMOS diagnostic work-order request for AI authority qualification.">
+<link rel="canonical" href="https://epmos.tech/pages/work-order.html">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.intake-wrap{max-width:980px;margin:0 auto;padding:2rem 1rem 4rem}.intake-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.intake-grid .full{grid-column:1/-1}.intake-grid label{display:block;font-weight:700;margin:0 0 .35rem}.intake-grid input,.intake-grid select,.intake-grid textarea{width:100%;box-sizing:border-box;padding:.8rem;border:1px solid #4a4a4a;background:#0d0d0d;color:#fff;border-radius:6px}.intake-grid textarea{min-height:110px;resize:vertical}.frameworks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem}.frameworks label{font-weight:400}.consent{padding:1rem;border:1px solid #444;border-radius:8px}.intake-status{margin-top:1rem;padding:1rem;border:1px solid #444;border-radius:8px;display:none}.fine-note{font-size:.9rem;opacity:.8}.choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:0 0 2rem}.choice-card{border:1px solid #444;border-radius:10px;padding:1.2rem}.choice-card h2{margin-top:0}.choice-card p{opacity:.9}@media(max-width:720px){.intake-grid,.choice-grid{grid-template-columns:1fr}.frameworks{grid-template-columns:1fr}.intake-grid .full{grid-column:auto}}
+</style>
+</head>
+<body>
+<header class="site-header"><a class="brand" href="../index.html" aria-label="EPMOS home"><span class="brand-mark">E</span><span>EPMOS</span></a><button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button><nav id="site-nav" aria-label="Primary navigation"><a href="../index.html">Home</a><a href="verification-service.html">Verification</a><a href="work-order.html" aria-current="page">Create Work Order</a><a href="work-order-dropoff.html">Drop Off Existing Form</a><a href="contact.html">Contact</a></nav></header>
+<main>
+<section class="page-hero"><div class="eyebrow">CONTROLLED PUBLIC INTAKE</div><h1>Create a diagnostic work-order request.</h1><p class="lede">Describe the system, the authority you want tested, the frameworks that matter, and the boundaries EPMOS must not cross.</p><div class="status-chip"><span class="status-dot"></span>PUBLIC-SAFE INTAKE · NO SECRETS OR REGULATED DATA</div></section>
+<div class="intake-wrap">
+<section class="choice-grid" aria-label="Choose intake method">
+<article class="choice-card"><h2>Fill out the EPMOS form</h2><p>Best for a new request or when you want EPMOS to walk you through the information we need.</p><a class="button primary" href="#workOrderForm">Start New Work Order</a></article>
+<article class="choice-card"><h2>Already have a form?</h2><p>Returning customer or IT department already prepared the work order? Upload the existing PDF, DOC, DOCX, JSON, TXT, or Markdown file instead of retyping it.</p><a class="button primary" href="work-order-dropoff.html">Drop Off Existing Work Order</a></article>
+</section>
+<form id="workOrderForm" class="intake-grid">
+<div><label for="organization">Organization *</label><input id="organization" name="organization" required></div>
+<div><label for="requester">Authorized requester *</label><input id="requester" name="requester" required></div>
+<div><label for="email">Requester email *</label><input id="email" name="email" type="email" required></div>
+<div><label for="authorityDeclaration">Authority to request testing *</label><select id="authorityDeclaration" name="authorityDeclaration" required><option value="">Select</option><option>I am authorized to request this diagnostic</option><option>I am preparing a request for an authorized decision maker</option><option>Authority must be verified before testing</option></select></div>
+<div><label for="systemName">Target system / agent *</label><input id="systemName" name="systemName" required></div>
+<div><label for="systemVersion">Version / model / build</label><input id="systemVersion" name="systemVersion"></div>
+<div><label for="environment">Environment *</label><select id="environment" name="environment" required><option value="">Select</option><option>Sandbox</option><option>Staging</option><option>Production</option><option>Mixed</option></select></div>
+<div><label for="desiredOutcome">Requested service *</label><select id="desiredOutcome" name="desiredOutcome" required><option value="">Select</option><option>DIAGNOSTIC_ONLY</option><option>DIAGNOSTIC_AND_REMEDIATION_REQUEST</option><option>VERIFICATION</option></select></div>
+<div class="full"><label>Frameworks / standards</label><div class="frameworks">
+<label><input type="checkbox" name="framework" value="ISO 27001"> ISO/IEC 27001</label>
+<label><input type="checkbox" name="framework" value="NIST CSF"> NIST CSF</label>
+<label><input type="checkbox" name="framework" value="NIST SP 800"> NIST SP 800</label>
+<label><input type="checkbox" name="framework" value="NIST AI RMF"> NIST AI RMF</label>
+<label><input type="checkbox" name="framework" value="CMMC"> CMMC</label>
+<label><input type="checkbox" name="framework" value="SOC 2"> SOC 2</label>
+<label><input type="checkbox" name="framework" value="HIPAA"> HIPAA</label>
+<label><input type="checkbox" name="framework" value="PCI DSS"> PCI DSS</label>
+<label><input type="checkbox" name="framework" value="FedRAMP"> FedRAMP</label>
+<label><input type="checkbox" name="framework" value="EU AI Act"> EU AI Act</label>
+</div></div>
+<div class="full"><label for="otherFramework">Other framework / standard</label><input id="otherFramework" name="otherFramework" placeholder="If it is new to EPMOS, it will require research before an adapter is assigned."></div>
+<div class="full"><label for="intendedAuthority">Intended AI authority *</label><textarea id="intendedAuthority" name="intendedAuthority" required placeholder="What may the AI read, write, approve, send, deploy, modify, move, or control?"></textarea></div>
+<div class="full"><label for="inScope">Systems / tools in scope *</label><textarea id="inScope" name="inScope" required></textarea></div>
+<div class="full"><label for="outOfScope">Explicitly out of scope *</label><textarea id="outOfScope" name="outOfScope" required></textarea></div>
+<div class="full"><label for="permittedTests">Permitted test actions *</label><textarea id="permittedTests" name="permittedTests" required placeholder="Example: read-only inspection, sandbox prompts, simulated tool calls."></textarea></div>
+<div class="full"><label for="prohibitedActions">Prohibited actions *</label><textarea id="prohibitedActions" name="prohibitedActions" required placeholder="Example: no production writes, no credential changes, no deletion, no external sending."></textarea></div>
+<div class="full"><label for="dataSensitivity">Data sensitivity / disclosure classification *</label><textarea id="dataSensitivity" name="dataSensitivity" required></textarea></div>
+<div class="full"><label for="continuity">Downtime / safety / business-continuity constraints</label><textarea id="continuity" name="continuity"></textarea></div>
+<div class="full"><label for="rollback">Rollback expectations</label><textarea id="rollback" name="rollback"></textarea></div>
+<div class="full"><label for="consequences">High-consequence failures to test *</label><textarea id="consequences" name="consequences" required placeholder="Financial, clinical, legal, security, operational, privacy, safety, or reputational consequences."></textarea></div>
+<div class="full consent"><label><input id="noSecrets" type="checkbox" required> I confirm this public intake contains no credentials, secrets, exploit details, proprietary source code, protected prompts, or regulated personal data.</label><label><input id="founderGate" type="checkbox" required> I understand no material remediation, production mutation, credential change, release, or promotion is authorized by this intake. Founder review remains a separate gate.</label></div>
+<div class="full actions"><button class="button primary" type="submit">Create Work-Order Request</button></div>
+<div id="intakeStatus" class="full intake-status"></div>
+</form>
+<p class="fine-note">This page creates a public-safe intake package and opens a pre-addressed message to foundingarchitect@epmos.tech. Canonical Intake ID, Diagnostic ID, and WorkOrder ID are assigned only by the governed Factory intake stage after receipt and authority verification.</p>
+</div>
+</main>
+<footer class="site-footer"><div><strong>EPMOS</strong><span>Human-Governed · Traceable · Accountable</span></div><div><a href="work-order-dropoff.html">Drop Off Existing Form</a></div></footer>
+<script src="../site.js" defer></script>
+<script>
+(function(){
+  const form=document.getElementById('workOrderForm');
+  const status=document.getElementById('intakeStatus');
+  function values(name){return [...form.querySelectorAll('[name="'+name+'"]:checked')].map(x=>x.value)}
+  function v(id){return document.getElementById(id).value.trim()}
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(!form.reportValidity()) return;
+    const created=new Date();
+    const publicIntakeId='PUB-'+created.toISOString().replace(/[-:.TZ]/g,'').slice(0,14)+'-'+Math.random().toString(36).slice(2,8).toUpperCase();
+    const frameworks=values('framework'); if(v('otherFramework')) frameworks.push(v('otherFramework'));
+    const payload={record_type:'EPMOS_PUBLIC_DIAGNOSTIC_INTAKE_REQUEST',lifecycle_state:'RESEARCH_INTAKE',public_intake_id:publicIntakeId,created_at:created.toISOString(),organization:v('organization'),requester:v('requester'),requester_email:v('email'),authority_declaration:v('authorityDeclaration'),target:{system_name:v('systemName'),version_model_build:v('systemVersion'),environment:v('environment')},requested_service:v('desiredOutcome'),frameworks:frameworks,intended_authority:v('intendedAuthority'),in_scope:v('inScope'),out_of_scope:v('outOfScope'),permitted_test_actions:v('permittedTests'),prohibited_actions:v('prohibitedActions'),data_sensitivity:v('dataSensitivity'),continuity_constraints:v('continuity'),rollback_expectations:v('rollback'),high_consequence_failures:v('consequences'),boundaries:{no_secrets_confirmed:true,founder_review_required_before_material_change:true,mutation_authority_at_intake:false},canonical_ids:{intake_id:null,diagnostic_id:null,work_order_id:null},status:'AWAITING_GOVERNED_FACTORY_INTAKE'};
+    const json=JSON.stringify(payload,null,2); const blob=new Blob([json],{type:'application/json'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=publicIntakeId+'.json'; a.click(); URL.revokeObjectURL(a.href);
+    const body=['EPMOS Public Diagnostic Intake Request','', 'Public Intake ID: '+publicIntakeId,'Organization: '+payload.organization,'Requester: '+payload.requester+' <'+payload.requester_email+'>','Authority declaration: '+payload.authority_declaration,'Target: '+payload.target.system_name+' | '+payload.target.version_model_build,'Environment: '+payload.target.environment,'Requested service: '+payload.requested_service,'Frameworks: '+(payload.frameworks.join(', ')||'None specified'),'','Intended authority:',payload.intended_authority,'','In scope:',payload.in_scope,'','Out of scope:',payload.out_of_scope,'','Permitted tests:',payload.permitted_test_actions,'','Prohibited actions:',payload.prohibited_actions,'','Data sensitivity:',payload.data_sensitivity,'','Continuity constraints:',payload.continuity_constraints,'','Rollback expectations:',payload.rollback_expectations,'','High-consequence failures:',payload.high_consequence_failures,'','BOUNDARY: No production mutation or remediation authority is granted by this intake. Founder review remains required.'].join('\n');
+    status.style.display='block'; status.innerHTML='<strong>Work-order request created.</strong><br>Public Intake ID: <code>'+publicIntakeId+'</code><br>A JSON copy has been downloaded. Your email app will open next so you can submit the request to the governed intake address.';
+    window.location.href='mailto:foundingarchitect@epmos.tech?subject='+encodeURIComponent('EPMOS Diagnostic Intake — '+publicIntakeId+' — '+payload.organization)+'&body='+encodeURIComponent(body);
+  });
+})();
+</script>
+</body>
+</html>

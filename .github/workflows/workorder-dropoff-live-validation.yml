@@ -1,0 +1,122 @@
+name: Work Order Drop-Off Live Validation
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'pages/work-order.html'
+      - 'pages/work-order-dropoff.html'
+      - '.github/workflows/workorder-dropoff-live-validation.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify production pages are reachable
+        run: |
+          curl --fail --silent --show-error https://www.epmos.tech/pages/work-order.html | grep -q 'Drop Off Existing Work Order'
+          curl --fail --silent --show-error https://www.epmos.tech/pages/work-order-dropoff.html | grep -q 'Upload Existing Work Order'
+      - name: Generate controlled fixtures
+        run: |
+          cat > /tmp/epmos-dropoff-validation.txt <<'TXT'
+          EPMOS controlled validation fixture.
+          Diagnostic only. No remediation, production mutation, release, credential change, or promotion authority.
+          TXT
+          python - <<'PY'
+          from pathlib import Path
+          text='EPMOS controlled PDF work-order drop-off validation. Diagnostic only. No remediation or production authority.'
+          stream=f'BT /F1 12 Tf 72 720 Td ({text}) Tj ET'.encode()
+          objs=[
+            b'<< /Type /Catalog /Pages 2 0 R >>',
+            b'<< /Type /Pages /Kids [3 0 R] /Count 1 >>',
+            b'<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>',
+            b'<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>',
+            b'<< /Length '+str(len(stream)).encode()+b' >>\nstream\n'+stream+b'\nendstream'
+          ]
+          out=bytearray(b'%PDF-1.4\n'); offsets=[0]
+          for i,obj in enumerate(objs,1):
+            offsets.append(len(out)); out+=f'{i} 0 obj\n'.encode()+obj+b'\nendobj\n'
+          xref=len(out); out+=f'xref\n0 {len(objs)+1}\n'.encode()+b'0000000000 65535 f \n'
+          for off in offsets[1:]: out+=f'{off:010d} 00000 n \n'.encode()
+          out+=f'trailer\n<< /Size {len(objs)+1} /Root 1 0 R >>\nstartxref\n{xref}\n%%EOF\n'.encode()
+          Path('/tmp/epmos-dropoff-validation.pdf').write_bytes(out)
+          PY
+      - name: Retest exact text fixture
+        env:
+          ENDPOINT: https://oavcxowjkabtioevgtls.supabase.co/functions/v1/public-workorder-dropoff
+        run: |
+          code=$(curl --silent --show-error --output /tmp/text-result.json --write-out '%{http_code}' \
+            -X POST "$ENDPOINT" -H 'Origin: https://www.epmos.tech' \
+            -F 'organization=EPMOS DROP-OFF VALIDATION' \
+            -F 'requester_name=EPMOS Validation Harness' \
+            -F 'requester_email=foundingarchitect+dropofftxt@epmos.tech' \
+            -F 'reference_id=LIVE-DROPOFF-TEXT-WIDENED' \
+            -F 'returning_customer=true' -F 'acknowledgement=true' -F 'website=' \
+            -F 'file=@/tmp/epmos-dropoff-validation.txt;type=text/plain')
+          echo "$code" > /tmp/text-http-code.txt
+          test "$code" = '201'
+          python - <<'PY'
+          import json
+          r=json.load(open('/tmp/text-result.json'))
+          assert r['ok'] is True and r['status']=='AWAITING_GOVERNED_INTAKE'
+          assert r['extraction_status']=='TEXT_EXTRACTED'
+          assert r['dropoff_id'].startswith('DROP-') and len(r['sha256'])==64
+          PY
+      - name: Widen to PDF fixture
+        env:
+          ENDPOINT: https://oavcxowjkabtioevgtls.supabase.co/functions/v1/public-workorder-dropoff
+        run: |
+          code=$(curl --silent --show-error --output /tmp/pdf-result.json --write-out '%{http_code}' \
+            -X POST "$ENDPOINT" -H 'Origin: https://www.epmos.tech' \
+            -F 'organization=EPMOS PDF DROP-OFF VALIDATION' \
+            -F 'requester_name=EPMOS Validation Harness' \
+            -F 'requester_email=foundingarchitect+dropoffpdf@epmos.tech' \
+            -F 'reference_id=LIVE-DROPOFF-PDF-WIDENED' \
+            -F 'returning_customer=true' -F 'acknowledgement=true' -F 'website=' \
+            -F 'file=@/tmp/epmos-dropoff-validation.pdf;type=application/pdf')
+          echo "$code" > /tmp/pdf-http-code.txt
+          cat /tmp/pdf-result.json
+          test "$code" = '201'
+          python - <<'PY'
+          import json
+          r=json.load(open('/tmp/pdf-result.json'))
+          assert r['ok'] is True and r['status']=='AWAITING_GOVERNED_INTAKE'
+          assert r['extraction_status']=='TEXT_EXTRACTED'
+          assert r['dropoff_id'].startswith('DROP-') and len(r['sha256'])==64
+          PY
+      - name: Attack public boundary
+        env:
+          ENDPOINT: https://oavcxowjkabtioevgtls.supabase.co/functions/v1/public-workorder-dropoff
+        run: |
+          bad_origin=$(curl --silent --output /tmp/bad-origin.json --write-out '%{http_code}' \
+            -X POST "$ENDPOINT" -H 'Origin: https://evil.example' \
+            -F 'organization=X' -F 'requester_name=X' -F 'requester_email=x@example.com' \
+            -F 'acknowledgement=true' -F 'file=@/tmp/epmos-dropoff-validation.txt;type=text/plain')
+          test "$bad_origin" = '403'
+          no_ack=$(curl --silent --output /tmp/no-ack.json --write-out '%{http_code}' \
+            -X POST "$ENDPOINT" -H 'Origin: https://www.epmos.tech' \
+            -F 'organization=X' -F 'requester_name=X' -F 'requester_email=x@example.com' \
+            -F 'acknowledgement=false' -F 'file=@/tmp/epmos-dropoff-validation.txt;type=text/plain')
+          test "$no_ack" = '400'
+          printf '<html>not allowed</html>' >/tmp/not-allowed.html
+          bad_type=$(curl --silent --output /tmp/bad-type.json --write-out '%{http_code}' \
+            -X POST "$ENDPOINT" -H 'Origin: https://www.epmos.tech' \
+            -F 'organization=X' -F 'requester_name=X' -F 'requester_email=x@example.com' \
+            -F 'acknowledgement=true' -F 'file=@/tmp/not-allowed.html;type=text/html')
+          test "$bad_type" = '415'
+      - name: Preserve validation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: workorder-dropoff-widened-validation-evidence
+          path: |
+            /tmp/text-result.json
+            /tmp/text-http-code.txt
+            /tmp/pdf-result.json
+            /tmp/pdf-http-code.txt
+            /tmp/bad-origin.json
+            /tmp/no-ack.json
+            /tmp/bad-type.json
+          if-no-files-found: warn

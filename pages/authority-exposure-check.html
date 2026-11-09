@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Authority Exposure Check | EPMOS</title>
+<meta name="description" content="A five-minute public-safe governed diagnostic for AI authority, identity, evidence, tools, delegation, revocation, provenance, recovery, and change-control exposure.">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.check-wrap{max-width:980px;margin:0 auto;padding:40px clamp(20px,6vw,70px) 110px}.check-grid{display:grid;gap:14px}.identity-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;border:1px solid var(--line);border-radius:20px;padding:22px;background:rgba(255,255,255,.03)}.identity-grid .full{grid-column:1/-1}.identity-grid label{display:block;font-weight:700;margin-bottom:7px}.identity-grid input{width:100%;box-sizing:border-box;padding:12px;border:1px solid var(--line);border-radius:10px;background:#0d1822;color:#fff}.question{border:1px solid var(--line);border-radius:18px;padding:20px;background:rgba(255,255,255,.025)}.question legend{font-weight:780;margin-bottom:12px}.question small{display:block;color:var(--quiet);margin-bottom:12px}.options{display:flex;gap:14px;flex-wrap:wrap}.options label{display:flex;gap:7px;align-items:center;border:1px solid var(--line);border-radius:999px;padding:8px 12px;cursor:pointer}.result{display:none;margin-top:28px;border:1px solid var(--line);border-radius:22px;padding:26px;background:linear-gradient(145deg,rgba(255,255,255,.05),rgba(255,255,255,.015))}.meter{height:12px;border-radius:999px;background:#102131;overflow:hidden;margin:14px 0}.meter span{display:block;height:100%;width:0;background:var(--accent)}.ids{display:grid;gap:7px;margin:18px 0;padding:16px;border:1px solid var(--line);border-radius:14px}.finding{padding:12px 0;border-bottom:1px solid var(--line)}.finding:last-child{border-bottom:0}.submit-note{font-size:.9rem;color:var(--quiet)}@media(max-width:700px){.identity-grid{grid-template-columns:1fr}.identity-grid .full{grid-column:auto}}
+</style>
+</head>
+<body>
+<header class="nav"><a class="brand" href="../index.html">EPMOS</a><nav><a href="pricing.html">Pricing</a><a href="founding-qualification-partners.html">Pilot Program</a><a href="verification-service.html">Atmos Lab</a><a href="work-order.html">Work Order</a></nav></header>
+<main>
+<section class="page-hero"><p class="eyebrow">PUBLIC-SAFE · 5 MINUTES · GOVERNED FACTORY INTAKE</p><h1>Is your AI capable of doing more than it is <em>authorized</em> to do?</h1><p class="lede">Complete the screen and EPMOS will create a governed diagnostic record, assign Factory identifiers, generate a downloadable diagnostic deliverable, and place the case into Founder review for any deeper testing request.</p></section>
+<section class="check-wrap">
+<form id="authorityCheck" class="check-grid">
+<div class="identity-grid">
+<div><label for="organization">Organization *</label><input id="organization" required autocomplete="organization"></div>
+<div><label for="requesterName">Your name *</label><input id="requesterName" required autocomplete="name"></div>
+<div><label for="requesterEmail">Work email *</label><input id="requesterEmail" required type="email" autocomplete="email"></div>
+<div><label for="targetSystem">AI system / workflow</label><input id="targetSystem" placeholder="Example: customer-service agent v2"></div>
+<div class="full" style="display:none"><label for="website">Website</label><input id="website" tabindex="-1" autocomplete="off"></div>
+</div>
+<div id="questions"></div>
+<button class="button primary" id="submitButton" type="submit">Run Governed Diagnostic</button>
+<p class="submit-note">Do not enter secrets, credentials, source code, regulated data, proprietary prompts, or confidential architecture. This diagnostic is a public-safe control screen, not penetration testing or certification.</p>
+</form>
+<div id="result" class="result" aria-live="polite">
+<p class="eyebrow">FACTORY DIAGNOSTIC DELIVERABLE</p><h2 id="resultTitle"></h2><div id="scoreLabel"></div><div class="meter"><span id="meterFill"></span></div><p id="resultText"></p>
+<div class="ids"><strong>Governed case identifiers</strong><span>Intake: <code id="intakeId"></code></span><span>Work Order: <code id="workOrderId"></code></span><span>Diagnostic: <code id="diagnosticId"></code></span><span>Factory state: <code id="factoryStatus"></code></span></div>
+<h3>Priority findings</h3><div id="findings"></div>
+<p class="fine">This result is a scoped diagnostic based on requester-supplied answers. It is not certification, legal advice, a compliance determination, or production authorization. Deeper adversarial testing requires a bounded work order and appropriate test access.</p>
+<div class="actions"><button class="button primary" id="downloadReport" type="button">Download Diagnostic Report</button><a class="button" href="work-order.html">Request Deeper Diagnostic</a><a class="button" href="pricing.html">See Engagement Pricing</a></div>
+</div>
+</section>
+</main>
+<footer><span>© 2026 EPMOS</span><a href="privacy.html">Privacy</a><span>Capability ≠ Authority</span></footer>
+<script>
+const endpoint='https://oavcxowjkabtioevgtls.supabase.co/functions/v1/factory-public-diagnostic';
+const questions=[
+['Authority is explicitly defined.','Can you point to a current record stating what the system may and may not do?'],
+['Authority is narrower than technical capability.','The system cannot treat “I can” as “I may.”'],
+['Identity continuity is controlled.','A copy, successor, changed model, or replacement does not automatically inherit prior trust.'],
+['Missing or conflicting evidence fails safely.','The system does not manufacture certainty from stale, incomplete, malformed, or contradictory state.'],
+['Tool access is least-privilege and inspectable.','Credentials, APIs, databases, and write access are bounded to the task.'],
+['Delegation cannot widen authority.','Downstream agents cannot silently gain more authority than the upstream actor had.'],
+['Revocation is enforceable now.','When authority is withdrawn, the system can no longer exercise it.'],
+['Consequential actions have reconstructable provenance.','You can recover what evidence, state, authority, and tool path supported the action.'],
+['Failures are preserved as evidence.','Failures are not deleted or averaged away after repair.'],
+['Repairs are tested against the exact failure.','The original failing condition is rerun before the test surface is widened.'],
+['Material changes trigger revalidation.','Model, prompt, tool, permission, identity, dependency, or policy changes can invalidate prior qualification.'],
+['The system cannot self-promote.','Passing tests does not let the AI grant itself broader authority or production status.'],
+['Human approval is tied to defined scope.','A human “yes” does not become permanent blanket permission.'],
+['Stop / kill / rollback controls have been exercised.','They are tested controls, not emergency-plan text only.'],
+['Adversarial tests target authority, not only task quality.','Tests pressure scope expansion, inheritance, stale state, tool misuse, and unsafe delegation.'],
+['Independent reproduction is possible.','A reviewer can reproduce consequential results from preserved evidence.'],
+['Multiple agents cannot create composite authority accidentally.','Individually bounded agents cannot combine permissions into an unapproved capability path.'],
+['You can prove what the system was authorized to do at the moment it acted.','Current authority, evidence, identity, state, and decision lineage are inspectable together.']
+];
+const q=document.getElementById('questions');q.innerHTML=questions.map((x,i)=>`<fieldset class="question"><legend>${i+1}. ${x[0]}</legend><small>${x[1]}</small><div class="options"><label><input required type="radio" name="q${i+1}" value="0"> Yes</label><label><input type="radio" name="q${i+1}" value="2"> Partly</label><label><input type="radio" name="q${i+1}" value="4"> No</label></div></fieldset>`).join('');
+let latestReport=null;
+document.getElementById('authorityCheck').addEventListener('submit',async function(e){e.preventDefault();if(!this.reportValidity())return;const btn=document.getElementById('submitButton');btn.disabled=true;btn.textContent='Running through governed intake…';try{const fd=new FormData(this);const answers={};for(let i=1;i<=18;i++)answers['q'+i]=Number(fd.get('q'+i));const payload={organization:document.getElementById('organization').value.trim(),requester_name:document.getElementById('requesterName').value.trim(),requester_email:document.getElementById('requesterEmail').value.trim(),target_system:document.getElementById('targetSystem').value.trim(),website:document.getElementById('website').value,answers,requested_followup:'FOUNDER_REVIEW_FOR_DEEPER_TESTING'};const r=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const data=await r.json();if(!r.ok)throw new Error(data.error||'Diagnostic failed');latestReport=data.report;const p=data.report.exposure_score,band=data.report.exposure_band;document.getElementById('resultTitle').textContent=band+' AUTHORITY EXPOSURE';document.getElementById('scoreLabel').textContent='Authority exposure score: '+p+' / 100';document.getElementById('meterFill').style.width=p+'%';document.getElementById('resultText').textContent=data.report.next_step;document.getElementById('intakeId').textContent=data.intake_id;document.getElementById('workOrderId').textContent=data.work_order_id;document.getElementById('diagnosticId').textContent=data.diagnostic_id;document.getElementById('factoryStatus').textContent=data.factory_status;document.getElementById('findings').innerHTML=(data.report.findings.length?data.report.findings.slice(0,8).map(f=>`<div class="finding"><strong>${f.severity}: ${f.name}</strong><br>${f.recommendation}</div>`).join(''):'<p>No unresolved control gaps were identified by this public screen. Bounded adversarial verification is still required to test whether controls survive pressure.</p>');document.getElementById('result').style.display='block';document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});}catch(err){alert('EPMOS diagnostic could not be completed: '+err.message);}finally{btn.disabled=false;btn.textContent='Run Governed Diagnostic';}});
+document.getElementById('downloadReport').addEventListener('click',function(){if(!latestReport)return;const text=JSON.stringify(latestReport,null,2),blob=new Blob([text],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=latestReport.diagnostic_id+'-EPMOS-diagnostic.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);});
+</script>
+</body></html>

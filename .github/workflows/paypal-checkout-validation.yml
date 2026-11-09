@@ -1,0 +1,29 @@
+name: PayPal Checkout Validation
+
+on:
+  push:
+    branches:
+      - working/paypal-checkout-20260922
+  pull_request:
+    paths:
+      - 'api/paypal/**'
+      - 'pages/payment.html'
+      - 'paypal-checkout.js'
+      - 'validation/test_paypal_checkout.js'
+      - '.github/workflows/paypal-checkout-validation.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run PayPal checkout regression test
+        run: node validation/test_paypal_checkout.js

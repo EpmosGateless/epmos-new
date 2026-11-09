@@ -1,0 +1,133 @@
+{
+  "dashboard": "EPMOS Founder Dashboard",
+  "generated": "2026-10-31",
+  "google_in_progress": [
+    {
+      "price": 39.99,
+      "status": "Batch 1, Publish OFF until all 44 sections in",
+      "title": "The Earth's Pharmacy (audiobook)"
+    }
+  ],
+  "google_live": [
+    {
+      "id": "U5ABXS0JXEF",
+      "price": 19.99,
+      "title": "Pearl of the Antilles - Special Edition (audiobook)"
+    },
+    {
+      "id": "KNA35S8ANEX",
+      "price": 19.99,
+      "title": "Pearl of the Antilles - Special Edition (ebook)"
+    },
+    {
+      "id": "YFYPBXBCACQ",
+      "price": 19.99,
+      "title": "CROWN OF HAITI: PEARL OF THE ANTILLES (audiobook)"
+    },
+    {
+      "id": "HY659HJJQ7D",
+      "price": 19.99,
+      "price_before": 17.99,
+      "title": "CROWN OF HAITI: PEARL OF THE ANTILLES (audiobook)"
+    },
+    {
+      "id": "F8AQSHFSSE4",
+      "price": 19.99,
+      "title": "CROWN OF HAITI: PEARL OF THE ANTILLES (ebook)"
+    },
+    {
+      "id": "HSNJX8RSUDD",
+      "price": 19.99,
+      "price_before": 17.99,
+      "title": "CROWN OF HAITI: PEARL OF THE ANTILLES (ebook)"
+    },
+    {
+      "id": "TNQHJ2DWY9T",
+      "price": 19.99,
+      "price_before": 9.99,
+      "title": "CROWN OF HAITI (audiobook, older)"
+    },
+    {
+      "id": "KXL1PZNG55N",
+      "price": 19.99,
+      "title": "CROWN OF HAITI (ebook)"
+    },
+    {
+      "id": "JWB3HYZ9ATD",
+      "price": 19.99,
+      "price_before": 7.99,
+      "title": "The Crown of Haiti (ebook, duplicate)"
+    },
+    {
+      "id": "H4JNZ9HKZ2L",
+      "price": 39.99,
+      "title": "THE EARTHS PHARMACY (ebook)"
+    }
+  ],
+  "google_processing": [
+    {
+      "id": "DYZ86J1Q73D",
+      "price": 19.99,
+      "status": "Submitted + Publish clicked, Google processing, NOT live yet",
+      "title": "Crown of Haiti (novel audiobook)"
+    },
+    {
+      "id": "KCAZBD0WHSK",
+      "price": 19.99,
+      "status": "Submitted + Publish clicked, Google processing, NOT live yet",
+      "title": "Crown of Haiti: Novella Edition (audiobook)"
+    }
+  ],
+  "rule": "Every row is a receipt. No invented sales, reach, or engagement.",
+  "sales_verified": {
+    "amount_usd": 0,
+    "as_of": "2026-10-31",
+    "units": 0
+  },
+  "social_receipts": {
+    "facebook_page_posts": [
+      "122126731071464031",
+      "122126731191464031",
+      "122126731371464031",
+      "122126731551464031",
+      "122126741151464031"
+    ],
+    "instagram_first_post": "https://www.instagram.com/p/DfKJZfNJuXZ/",
+    "threads_posts": [
+      "18130891918798285",
+      "18127065856675783",
+      "18644764075001455",
+      "18126249799912355"
+    ],
+    "youtube": "https://www.youtube.com/@gatelessepmos"
+  },
+  "teams": {
+    "companion_sales_fleet": [
+      "Amara",
+      "Calder",
+      "Selene",
+      "Ronan",
+      "Livia",
+      "Jasper",
+      "Nia",
+      "Darius"
+    ],
+    "marketing_departments": [
+      "director",
+      "creator",
+      "brand",
+      "researcher",
+      "community",
+      "sales-development",
+      "analytics",
+      "campaign-manager"
+    ]
+  },
+  "theo_dashboard": "NOT LIVE \u2014 no restaurant data connected, no monitoring approved; price sheet sent 2026-10-31, awaiting boss reply",
+  "closures_2026_10_31": {
+    "solomon_step3": "PASS 77/77, INSTALLED 0, HOLD 0 (27+76 certified on Founder folder approval)",
+    "oct24_closeout_mirror": "17 entries, Drive folders 02+06, download-diff verified",
+    "voice_codes_fixed": "Brazilian female + West Coast, mocked tests 28/28 x2, no live OpenAI call claimed",
+    "voice_live_listen": "Closed by Founder testing in AI Systems Academy"
+  }
+}

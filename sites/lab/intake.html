@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EPMOS Lab — Submit a Work Order</title>
+<meta name="description" content="Submit a real EPMOS Lab work order for governed scope review. No substantive diagnostic begins until engagement is accepted.">
+<link rel="canonical" href="https://epmos.tech/lab/work-order">
+<link rel="stylesheet" href="/sites/shared/styles.css">
+<style>
+.intakewrap{max-width:1020px;margin:0 auto;padding:2rem 1rem 5rem}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.field.full{grid-column:1/-1}.field label{display:block;font-weight:700;margin-bottom:.35rem}.field input,.field select,.field textarea{width:100%;box-sizing:border-box;padding:.85rem;border:1px solid #40505c;border-radius:8px;background:#0a1117;color:#fff}.field textarea{min-height:125px}.receipt{display:none;margin-top:1rem;padding:1rem;border:1px solid #9b7a32;border-radius:8px;background:#101820}.helper{font-size:.9rem;opacity:.78}.honeypot{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}@media(max-width:720px){.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}}
+</style>
+</head>
+<body>
+<main class="shell">
+<nav class="nav"><a class="brand" href="/lab">EPMOS LAB</a><div class="navlinks"><a href="/lab/pricing">Pricing</a><a href="/lab#operational-lab">The Lab</a><a href="/" >EPMOS.tech</a><a href="/lab" class="navcta">Back to Lab</a></div></nav>
+<section class="intakewrap">
+<div class="eyebrow">GOVERNED COMMERCIAL INTAKE</div>
+<h1>Submit the problem. EPMOS decides whether to accept the work.</h1>
+<p class="lede">Submitting this form creates a real Lab intake record and request ID. It does <strong>not</strong> start free analysis. EPMOS reviews fit, scope, authority, boundaries, timing, and commercial terms first.</p>
+<form id="labIntake" class="formgrid">
+<div class="field"><label for="name">Your name *</label><input id="name" required autocomplete="name"></div>
+<div class="field"><label for="org">Organization *</label><input id="org" required autocomplete="organization"></div>
+<div class="field"><label for="email">Work email *</label><input id="email" required type="email" autocomplete="email"></div>
+<div class="field"><label for="role">Role</label><input id="role" placeholder="CEO, CSO, CISO, R&D, AI Governance, etc."></div>
+<div class="field"><label for="engagement">Requested engagement *</label><select id="engagement" required><option value="">Select</option><option value="AI_AUTHORITY_EXPOSURE_REVIEW">AI Authority Exposure Review</option><option value="DEEP_AUTHORITY_DIAGNOSTIC">Deep Authority Diagnostic</option><option value="RESISTANCE_INTELLIGENCE_SNAPSHOT">Resistance Intelligence Snapshot</option><option value="ADVERSARIAL_QUALIFICATION_SPRINT">Adversarial Qualification Sprint</option><option value="FOUNDING_QUALIFICATION_PARTNER">Founding Qualification Partner</option></select></div>
+<div class="field"><label for="target">Target system / program</label><input id="target" placeholder="AI system, agent, research thesis, biomarker, program, etc."></div>
+<div class="field full"><label for="question">What are you about to trust, fund, deploy, validate, or act on? *</label><textarea id="question" required placeholder="Describe the consequential assumption or authority decision in public-safe terms."></textarea><div class="helper">Do not enter credentials, patient-identifiable information, protected prompts, exploit payloads, or unpublished trade secrets.</div></div>
+<div class="field"><label for="stage">Decision stage</label><select id="stage"><option>Exploratory</option><option>Early research</option><option>Preclinical / translational</option><option>Biomarker validation</option><option>AI staging / pre-production</option><option>Production authority review</option><option>Portfolio / investment decision</option><option>Other</option></select></div>
+<div class="field"><label for="timing">Decision timing</label><select id="timing"><option>This week</option><option>Within 30 days</option><option>This quarter</option><option>Exploratory</option></select></div>
+<div class="field"><label for="budget">Budget context</label><select id="budget"><option>Need scope first</option><option>Under $5,000</option><option>$5,000–$15,000</option><option>$15,000–$30,000</option><option>$30,000–$75,000</option><option>$75,000+</option></select></div>
+<div class="field"><label for="notes">Scope notes</label><input id="notes" placeholder="Anything EPMOS should know before review"></div>
+<div class="honeypot" aria-hidden="true"><label>Website<input id="website" tabindex="-1" autocomplete="off"></label></div>
+<div class="field full"><label><input id="ack" type="checkbox" required> I confirm this public intake contains no credentials, secrets, regulated personal data, exploit payloads, or protected source material. I understand no substantive diagnostic or testing starts until EPMOS accepts scope and commercial terms.</label></div>
+<div class="field full"><button id="submitBtn" class="cta" type="submit">Submit Work Order</button></div>
+<div id="receipt" class="field full receipt"></div>
+</form>
+<section class="section compact"><div class="eyebrow">WHAT HAPPENS NEXT</div><div class="grid three"><article class="card"><div class="num">01</div><h3>Scope Review</h3><p>EPMOS reviews the problem, authority, boundaries, urgency, and fit.</p></article><article class="card"><div class="num">02</div><h3>Commercial Acceptance</h3><p>We confirm the fixed scope, deliverable, price, timing, confidentiality, and payment path.</p></article><article class="card"><div class="num">03</div><h3>Work Begins</h3><p>Only after acceptance does the Lab begin substantive analysis, adversarial work, or qualification.</p></article></div></section>
+</section>
+<footer class="footer"><div><strong>EPMOS Lab</strong><br>A branch of EPMOS.tech.</div><div class="footerlinks"><a href="/lab/pricing">Pricing</a><a href="mailto:foundingarchitect@epmos.tech">foundingarchitect@epmos.tech</a></div></footer>
+</main>
+<script>
+const ENDPOINT='https://oavcxowjkabtioevgtls.supabase.co/functions/v1/lab-commercial-intake';
+const v=id=>document.getElementById(id).value.trim();
+(function(){const p=new URLSearchParams(location.search).get('engagement');if(p){const s=document.getElementById('engagement');if([...s.options].some(o=>o.value===p))s.value=p;}})();
+document.getElementById('labIntake').addEventListener('submit',async(e)=>{
+ e.preventDefault(); const form=e.currentTarget,btn=document.getElementById('submitBtn'),receipt=document.getElementById('receipt'); if(!form.reportValidity())return;
+ const payload={organization:v('org'),requester_name:v('name'),requester_email:v('email'),requester_role:v('role'),engagement_type:v('engagement'),target_system:v('target'),scientific_question:v('question'),decision_stage:v('stage'),decision_timing:v('timing'),budget_context:v('budget'),scope_notes:v('notes'),website:v('website'),no_secrets_confirmed:document.getElementById('ack').checked};
+ btn.disabled=true;btn.textContent='Submitting…';receipt.style.display='block';receipt.textContent='Creating governed Lab intake record…';
+ try{const r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const data=await r.json().catch(()=>({}));if(!r.ok)throw new Error(data.error||'SUBMISSION_FAILED');receipt.innerHTML='<strong>Work order received.</strong><br>Request ID: <code>'+data.request_id+'</code><br>Intake ID: <code>'+data.intake_id+'</code><br>Status: '+data.status+'<br><span class="helper">No diagnostic has started. EPMOS will review scope and commercial terms first.</span>';form.reset();}catch(err){receipt.innerHTML='<strong>Submission did not complete.</strong><br>'+String(err.message||err)+'. Please retry or email foundingarchitect@epmos.tech.';}finally{btn.disabled=false;btn.textContent='Submit Work Order';}
+});
+</script>
+</body></html>
